@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, IndexRoute, Router, browserHistory } from "react-router";
 
+import Child from "../components/Child"
 
 import Main from "../components/Main";
 
@@ -9,9 +10,19 @@ import Main from "../components/Main";
 // build the webpack project, start the server, and navigate to localhost:3000
 
 const routes = (
+
   <Router history={browserHistory}>
-    <Route path="/" component={Main} />
+
+    <Route path="/" component={Main}>
+
+      <Route path="child" component={Child} />
+
+
+
+    </Route>
+      <IndexRoute component={Main} />
   </Router>
+
 );
 
 export default routes;
