@@ -1,26 +1,28 @@
 import React from "react";
 import { Route, IndexRoute, Router, browserHistory } from "react-router";
 
+import Search from "../components/Search"
+import Results from "../components/Results"
+
 import Child from "../components/Child"
 
 import Main from "../components/Main";
-
-// Using just one route for now
-// NOTE: browserHistory only works when run with a server
-// build the webpack project, start the server, and navigate to localhost:3000
 
 const routes = (
 
   <Router history={browserHistory}>
 
-    <Route path="/" component={Main}>
+    <Route path="/" component={Main} />
+
+      <Route path="search" component={Search} />
+
+      <Route path="Results" component={Results} />
 
       <Route path="child" component={Child} />
 
 
+    {/* <IndexRoute component={Main} /> */}
 
-    </Route>
-      <IndexRoute component={Main} />
   </Router>
 
 );

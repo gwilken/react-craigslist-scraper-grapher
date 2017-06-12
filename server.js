@@ -16,10 +16,8 @@ app.use(express.static("./public"));
 app.use("/", noderoutes);
 
 
-mongo.connect(function () {
+mongo.connect();
 
-	app.listen(PORT, function() {
-		console.log("Server listening on port", PORT);
-	});
-
+app.listen(PORT, function() {
+  console.log("Server listening on port", PORT);
 });
