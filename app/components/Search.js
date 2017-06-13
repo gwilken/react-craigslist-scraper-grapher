@@ -65,7 +65,7 @@ class Search extends React.Component {
             <input
               className='mdl-textfield__input'
               onChange={this.updateText}
-              type="text"/>
+              type="text" />
 
             <label
               id="search-label"
@@ -73,9 +73,14 @@ class Search extends React.Component {
               for="scrape-input">Search...
             </label>
 
-            <button className="mdl-button mdl-button--colored mdl-js-button" type="submit" />
+            <button id="go-button" className="mdl-button mdl-button--colored mdl-js-button" type="submit">Go</button>
 
           </form>
+
+
+
+
+
 
         </div>
 

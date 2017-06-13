@@ -39,7 +39,7 @@ class BarChart extends React.Component {
           {
             label: 'Price',
             data: this.props.obj.prices,
-            backgroundColor: 'magenta',
+            backgroundColor: 'lightblue',
             borderWidth: 1
           }
       ]
