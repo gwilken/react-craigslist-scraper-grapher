@@ -17,6 +17,11 @@ body {
   font-size: 24px;
 }
 
+.search-updatedAt {
+    font-size: 20px;
+    color: grey;
+}
+
 #search-container {
   margin: 2% 0% 2% 4%;
 }
@@ -40,4 +45,16 @@ body {
 .mdl-textfield__input {
   font-size: 32px;
   color: white;
+}
+
+.favorite {
+  margin-left: 2%;
+}
+
+.unselected {
+  color: grey;
+}
+
+.selected {
+  color: lightblue;
 }

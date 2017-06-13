@@ -79,7 +79,41 @@ router.post("/search", function(req, res) {
       })
 
     });
-  }),
+  });
+
+
+router.post('/delete/:id', function(req, res) {
+
+  db.collection.deleteOne( { _id: ObjectID(req.params.id) }, function(err, result) {
+
+    if(err) res.json(err);
+
+    db.collection.find({}).sort( {createdAt: -1} ).toArray(function( err, docs) {
+
+      res.json(docs);
+
+    })
+
+  })
+
+});
+
+
+router.post('/favorite/:id/:toggle', function(req, res) {
+
+  var isFav = parseInt(req.params.toggle);
+
+  db.collection.updateOne( { _id: ObjectID(req.params.id) }, { $set: { favorite: isFav } }, function(err, result) {
+
+    if(result.result.ok === 1) {
+      res.send(true);
+
+    } else {
+      res.send(false);
+    };
+
+  });
+});
 
 
 router.get("*", function(req, res) {

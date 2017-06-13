@@ -17,6 +17,9 @@ class Search extends React.Component {
     this.doSearch = this.doSearch.bind(this);
     this.updateText = this.updateText.bind(this);
     this.haveData = this.haveData.bind(this);
+    this.delete = this.delete.bind(this);
+    this.update = this.update.bind(this);
+
   }
 
   componentDidMount() {
@@ -28,16 +31,25 @@ class Search extends React.Component {
       }.bind(this))
   }
 
+  delete(id) {
+    //this.setState( {results: data} );
+    api.delete(id).then((res) => {
+
+      this.setState( {results: res} )
+
+    })
+  }
+
+  update(id) {
+    console.log('parent u', id);
+  }
+
   doSearch(event) {
     event.preventDefault();
 
     api.search(this.state.text).then((res) => {
-      console.log(res);
-
       this.setState( { results: this.state.results.concat(res).reverse() } )
-
     });
-
   }
 
   updateText(event) {
@@ -48,7 +60,7 @@ class Search extends React.Component {
 
   haveData() {
     if(this.state.results) {
-      return( <Results data={this.state.results} /> )
+      return( <Results data={this.state.results} delete={this.delete} update={this.update} /> )
     }
   }
 
@@ -69,18 +81,13 @@ class Search extends React.Component {
 
             <label
               id="search-label"
-              className="mdl-textfield__label"
-              for="scrape-input">Search...
+              className="mdl-textfield__label">
+              Search...
             </label>
 
             <button id="go-button" className="mdl-button mdl-button--colored mdl-js-button" type="submit">Go</button>
 
           </form>
-
-
-
-
-
 
         </div>
 

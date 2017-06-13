@@ -25,7 +25,7 @@ class Results extends React.Component {
           {
             this.props.data.map((element) => {
               return(
-                <BarChart key={element._id} obj={element}/>
+                <BarChart key={element._id} obj={element} delete={this.props.delete} update={this.props.update} />
               )
             })
           }
