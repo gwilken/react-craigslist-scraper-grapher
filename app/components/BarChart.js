@@ -50,18 +50,21 @@ class BarChart extends React.Component {
   render() {
     return(
 
-      <div className="graphContainer">
+      <div>
+        <div className="graphContainer">
 
-        <Bar data={this.state.data}
-            options={chartOptions}
-            width={800}
-            height={150}
-        />
+          <Bar data={this.state.data}
+              options={chartOptions}
+              width={800}
+              height={110}
+          />
 
-        {/* <div className="titlebar">
-          <h2 className="search-title"> {this.state.target} </h2>
-          <h2 className="search-updatedAt"> {this.state.updatedAt} </h2>
-        </div> */}
+        </div>
+
+        <div className="titlebar">
+          <span className="search-title"> {this.state.target} </span>
+          <span className="search-updatedAt"> {this.state.updatedAt} </span>
+        </div>
 
       </div>
     )

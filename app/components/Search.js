@@ -30,7 +30,14 @@ class Search extends React.Component {
 
   doSearch(event) {
     event.preventDefault();
-    api.search(this.state.text);
+
+    api.search(this.state.text).then((res) => {
+      console.log(res);
+
+      this.setState( { results: this.state.results.concat(res).reverse() } )
+
+    });
+
   }
 
   updateText(event) {

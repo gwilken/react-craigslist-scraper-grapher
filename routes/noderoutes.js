@@ -11,7 +11,7 @@ const router = new express.Router();
 
 router.get('/all', function(req, res) {
 
-  db.collection.find({}).toArray(function( err, docs) {
+  db.collection.find({}).sort( {createdAt: -1} ).toArray(function( err, docs) {
 
     res.json(docs);
   })
@@ -74,7 +74,9 @@ router.post("/search", function(req, res) {
 
       });
 
-        res.json('ok');
+      db.collection.find({ _id: ObjectID(insertedId) }).toArray( function(err, doc) {
+        res.send(doc[0]);
+      })
 
     });
   }),
