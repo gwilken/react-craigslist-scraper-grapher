@@ -2,7 +2,7 @@ import React from "react";
 import Search from "./Search";
 import api from "../utils/api";
 
-import Graph from "./Graph";
+import BarChart from "./BarChart";
 
 
 class Results extends React.Component {
@@ -20,6 +20,7 @@ class Results extends React.Component {
       .then((res) => res.json())
       .then(function(data) {
         this.setState( {results: data} )
+        console.log(data);
         //console.log(this.state.results);
       }.bind(this))
   }
@@ -31,7 +32,7 @@ class Results extends React.Component {
           {
             this.state.results.map((element) => {
               return(
-                <Graph key={element._id} titles={element.titles} prices={element.prices} />
+                <BarChart key={element._id} obj={element}/>
               )
             })
           }
