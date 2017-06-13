@@ -1,10 +1,11 @@
 import React from "react";
+import Search from "./Search";
+import Results from "./Results";
 
 class Main extends React.Component {
 
   constructor(props) {
     super(props);
-
   }
 
   render() {
@@ -12,7 +13,9 @@ class Main extends React.Component {
 
       <div>
 
-        <h1>Main</h1>
+        <Search />
+
+        <Results />
 
         {this.props.children}
 
