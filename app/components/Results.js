@@ -11,26 +11,19 @@ class Results extends React.Component {
     super(props);
 
     this.state = {
-      results: []
+      data: this.props.data
     }
-  }
 
-  componentDidMount() {
-    fetch('/all')
-      .then((res) => res.json())
-      .then(function(data) {
-        this.setState( {results: data} )
-        console.log(data);
-        //console.log(this.state.results);
-      }.bind(this))
   }
 
   render() {
+
     return(
+
       <div>
         <ul>
           {
-            this.state.results.map((element) => {
+            this.props.data.map((element) => {
               return(
                 <BarChart key={element._id} obj={element}/>
               )
@@ -38,6 +31,7 @@ class Results extends React.Component {
           }
         </ul>
       </div>
+
     )
   }
 

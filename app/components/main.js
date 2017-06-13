@@ -2,6 +2,7 @@ import React from "react";
 import Search from "./Search";
 import Results from "./Results";
 
+
 class Main extends React.Component {
 
   constructor(props) {
@@ -15,7 +16,6 @@ class Main extends React.Component {
 
         <Search />
 
-        <Results />
 
         {this.props.children}
 
