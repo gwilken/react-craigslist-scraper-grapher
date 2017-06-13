@@ -16,7 +16,6 @@ class Main extends React.Component {
 
         <Search />
 
-
         {this.props.children}
 
       </div>
