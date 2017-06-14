@@ -1,4 +1,6 @@
 var webpack = require('webpack');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
 
 module.exports = {
 
@@ -28,6 +30,8 @@ module.exports = {
     ]
   },
   plugins: [
+
+      // new BundleAnalyzerPlugin(),
       new webpack.DefinePlugin({
                'process.env.NODE_ENV': '"production"'
       }),
