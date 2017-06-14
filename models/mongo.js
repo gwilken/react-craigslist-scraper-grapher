@@ -3,7 +3,6 @@ const assert      = require('assert');
 
 const url = 'mongodb://localhost:27017/scraper';
 
-
 var mongo = {
 
     db: null,
