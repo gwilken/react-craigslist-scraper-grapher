@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, IndexRoute, Router, browserHistory } from "react-router";
 
-import Search from "../components/Search"
-import Results from "../components/Results"
+import Search from "../components/Search";
+import Results from "../components/Results";
 import Main from "../components/Main";
 
 const routes = (

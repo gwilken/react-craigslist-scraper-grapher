@@ -7,11 +7,8 @@ const db = require("../models/mongo");
 
 const router = new express.Router();
 
-
 router.get('/all', function(req, res) {
-
   db.collection.find({}).sort( {createdAt: -1} ).toArray(function( err, docs) {
-
     res.json(docs);
   })
 });
@@ -19,7 +16,6 @@ router.get('/all', function(req, res) {
 router.get('/favs', function(req, res) {
 
   db.collection.find({favorite: 1}).toArray(function( err, docs) {
-
     res.json(docs);
   })
 });
@@ -28,6 +24,7 @@ router.get("/link/:id/:index", function(req, res) {
 
   db.collection.find( { _id: ObjectID(req.params.id) }, { _id: 0, links: 1 } ).toArray( function(err, doc) {
 
+    if(err) console.log(err);
     res.json(doc[0].links[req.params.index]);
   })
 });
@@ -70,13 +67,11 @@ router.post("/search", function(req, res) {
         db.collection.updateOne( { _id: ObjectID(insertedId) }, { $push: { titles: title } } );
         db.collection.updateOne( { _id: ObjectID(insertedId) }, { $push: { prices: parseFloat(price) } } );
         db.collection.updateOne( { _id: ObjectID(insertedId) }, { $push: { links: link } } );
-
       });
 
       db.collection.find({ _id: ObjectID(insertedId) }).toArray( function(err, doc) {
         res.send(doc[0]);
       })
-
     });
   });
 
@@ -88,13 +83,9 @@ router.post('/delete/:id', function(req, res) {
     if(err) res.json(err);
 
     db.collection.find({}).sort( {createdAt: -1} ).toArray(function( err, docs) {
-
       res.json(docs);
-
     })
-
   })
-
 });
 
 
@@ -114,11 +105,8 @@ router.post('/favorite/:id/:toggle', function(req, res) {
   });
 });
 
-
 router.get("*", function(req, res) {
-
   res.sendFile(path.join(__dirname, "../public/index.html"));
-
 });
 
 module.exports = router;

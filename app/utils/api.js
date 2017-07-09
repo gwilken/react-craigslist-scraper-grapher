@@ -14,9 +14,9 @@ const api = {
   },
 
   getLink: function(id, index) {
-    return fetch(`/link/${id}/${index}`)
-      .then((res) => res.json())
-        .then((data) => data);
+    return fetch(`/link/${id}/${index}`, {method: 'GET'})
+    .then((res) => res.json())
+      .then((data) => data);
   },
 
   search: function(searchTerm) {
@@ -34,8 +34,6 @@ const api = {
     }).then((res) => res.json())
         .then((data) => data);
   }
-
-
 }
 
 export default api;

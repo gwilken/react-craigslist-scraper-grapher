@@ -1,7 +1,5 @@
 import React from "react";
-
 import api from "../utils/api";
-
 import Results from "./Results";
 
 class Search extends React.Component {
@@ -19,7 +17,6 @@ class Search extends React.Component {
     this.haveData = this.haveData.bind(this);
     this.delete = this.delete.bind(this);
     this.update = this.update.bind(this);
-
   }
 
   componentDidMount() {

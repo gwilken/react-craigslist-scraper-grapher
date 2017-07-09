@@ -25906,7 +25906,6 @@
 	    _this.haveData = _this.haveData.bind(_this);
 	    _this.delete = _this.delete.bind(_this);
 	    _this.update = _this.update.bind(_this);
-
 	    return _this;
 	  }
 
@@ -26031,7 +26030,7 @@
 	  },
 
 	  getLink: function getLink(id, index) {
-	    return fetch('/link/' + id + '/' + index).then(function (res) {
+	    return fetch('/link/' + id + '/' + index, { method: 'GET' }).then(function (res) {
 	      return res.json();
 	    }).then(function (data) {
 	      return data;
@@ -26058,7 +26057,6 @@
 	      return data;
 	    });
 	  }
-
 	};
 
 		exports.default = api;
@@ -26142,7 +26140,7 @@
 /* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -26153,6 +26151,10 @@
 	var _react = __webpack_require__(170);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _api = __webpack_require__(230);
+
+	var _api2 = _interopRequireDefault(_api);
 
 	var _reactChartjs = __webpack_require__(233);
 
@@ -26167,27 +26169,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var chartOptions = {
-	  //onClick: graphClickEvent,
-	  maintainAspectRatio: false,
-	  hover: {
-	    animationDuration: 0
-	  },
-	  legend: {
-	    display: false
-	  },
-	  scales: {
-	    yAxes: [{
-	      ticks: {
-	        beginAtZero: true
-	      }
-	    }],
-	    xAxes: [{
-	      display: false
-	    }]
-	  }
-	};
 
 	var BarChart = function (_React$Component) {
 	  _inherits(BarChart, _React$Component);
@@ -26216,35 +26197,67 @@
 
 	    _this.handleDelete = _this.handleDelete.bind(_this);
 	    _this.handleUpdate = _this.handleUpdate.bind(_this);
-
+	    _this.handleClick = _this.handleClick.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(BarChart, [{
-	    key: 'handleUpdate',
+	    key: "handleUpdate",
 	    value: function handleUpdate(event) {
 	      this.props.update(event.target.value);
 	    }
 	  }, {
-	    key: 'handleDelete',
+	    key: "handleDelete",
 	    value: function handleDelete(event) {
 	      this.props.delete(event.target.value);
 	    }
 	  }, {
-	    key: 'prettyTime',
+	    key: "handleClick",
+	    value: function handleClick(event, arr) {
+	      var index = arr[0]._index;
+
+	      _api2.default.getLink(this.state.id, index).then(function (res) {
+	        console.log(res);
+	        window.open(res, "_parent");
+	      });
+	    }
+	  }, {
+	    key: "prettyTime",
 	    value: function prettyTime() {
 	      var updated = (0, _moment2.default)(this.state.updatedAt).calendar();
 	      return updated;
 	    }
 	  }, {
-	    key: 'render',
+	    key: "render",
 	    value: function render() {
+
+	      var chartOptions = {
+	        onClick: this.handleClick,
+	        maintainAspectRatio: false,
+	        hover: {
+	          animationDuration: 0
+	        },
+	        legend: {
+	          display: false
+	        },
+	        scales: {
+	          yAxes: [{
+	            ticks: {
+	              beginAtZero: true
+	            }
+	          }],
+	          xAxes: [{
+	            display: false
+	          }]
+	        }
+	      };
+
 	      return _react2.default.createElement(
-	        'div',
+	        "div",
 	        null,
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'graphContainer' },
+	          "div",
+	          { className: "graphContainer" },
 	          _react2.default.createElement(_reactChartjs.Bar, { data: this.state.data,
 	            options: chartOptions,
 	            width: 800,
@@ -26252,46 +26265,46 @@
 	          })
 	        ),
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'titlebar' },
+	          "div",
+	          { className: "titlebar" },
 	          _react2.default.createElement(
-	            'span',
-	            { className: 'search-title' },
-	            ' ',
+	            "span",
+	            { className: "search-title" },
+	            " ",
 	            this.state.target,
-	            ' '
+	            " "
 	          ),
 	          _react2.default.createElement(
-	            'span',
-	            { className: 'search-updatedAt' },
-	            ' ',
+	            "span",
+	            { className: "search-updatedAt" },
+	            " ",
 	            this.prettyTime(),
-	            ' '
+	            " "
 	          ),
 	          _react2.default.createElement(
-	            'button',
+	            "button",
 	            {
 	              value: this.state.id,
-	              className: 'update mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect',
+	              className: "update mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect",
 	              onClick: this.handleUpdate
 	            },
-	            'Update'
+	            "Update"
 	          ),
 	          _react2.default.createElement(
-	            'button',
+	            "button",
 	            {
 	              value: this.state.id,
-	              className: 'delete mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect',
+	              className: "delete mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect",
 	              onClick: this.handleDelete },
-	            'Delete'
+	            "Delete"
 	          ),
 	          _react2.default.createElement(
-	            'button',
-	            { value: this.state.id, className: 'favorite mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect' },
+	            "button",
+	            { value: this.state.id, className: "favorite mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" },
 	            _react2.default.createElement(
-	              'i',
-	              { id: '', className: 'unselected material-icons' },
-	              'favorite'
+	              "i",
+	              { id: "", className: "unselected material-icons" },
+	              "favorite"
 	            )
 	          )
 	        )

@@ -1,29 +1,7 @@
 import React from "react";
+import api from "../utils/api.js";
 import {Bar} from 'react-chartjs-2';
 import moment from 'moment';
-
-
-const chartOptions = {
-//onClick: graphClickEvent,
-  maintainAspectRatio: false,
-  hover: {
-    animationDuration: 0
-  },
-  legend: {
-    display: false
-  },
-  scales: {
-    yAxes: [{
-      ticks: {
-        beginAtZero: true
-      }
-  }],
-  xAxes: [{
-    display: false
-  }]
-  }
-}
-
 
 class BarChart extends React.Component {
 
@@ -38,20 +16,18 @@ class BarChart extends React.Component {
       favorite: this.props.obj.favorite,
       data: {
         labels: this.props.obj.titles,
-        datasets: [
-          {
+        datasets: [{
             label: 'Price',
             data: this.props.obj.prices,
             backgroundColor: 'cyan',
             borderWidth: 1
-          }
-      ]
+          }]
       }
     }
 
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
-
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleUpdate(event) {
@@ -62,6 +38,14 @@ class BarChart extends React.Component {
     this.props.delete(event.target.value);
   }
 
+  handleClick(event, arr) {
+    var index = arr[0]._index;
+
+    api.getLink(this.state.id, index).then((res) => {
+      console.log(res);
+      window.open(res, "_parent");
+    });
+  }
 
   prettyTime() {
     var updated = moment(this.state.updatedAt).calendar();
@@ -69,6 +53,28 @@ class BarChart extends React.Component {
   }
 
   render() {
+
+    const chartOptions = {
+      onClick: this.handleClick,
+      maintainAspectRatio: false,
+      hover: {
+        animationDuration: 0
+      },
+      legend: {
+        display: false
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+      }],
+      xAxes: [{
+        display: false
+      }]
+      }
+    }
+
     return(
 
       <div>
