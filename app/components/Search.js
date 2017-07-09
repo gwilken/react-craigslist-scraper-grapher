@@ -29,16 +29,15 @@ class Search extends React.Component {
   }
 
   delete(id) {
-    //this.setState( {results: data} );
     api.delete(id).then((res) => {
-
       this.setState( {results: res} )
-
     })
   }
 
-  update(id) {
-    console.log('parent u', id);
+  update(id, target) {
+    api.update(id, target).then((res) => {
+      console.log(res);
+    })
   }
 
   doSearch(event) {

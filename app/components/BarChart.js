@@ -31,7 +31,21 @@ class BarChart extends React.Component {
   }
 
   handleUpdate(event) {
-    this.props.update(event.target.value);
+    api.update(event.target.value, this.state.target).then((res) => {
+      console.log('at barchart:', res);
+
+      console.log('before', this.state);
+
+      var stateCopy = Object.assign({}, this.state);
+      stateCopy.updatedAt = res.updatedAt;
+      stateCopy.data.labels = res.titles;
+      stateCopy.data.datasets[0].data = res.prices;
+
+      this.setState(stateCopy);
+
+      console.log('after', this.state);
+
+    });
   }
 
   handleDelete(event) {
@@ -108,13 +122,10 @@ class BarChart extends React.Component {
           </button>
 
           <button value={this.state.id } className="favorite mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-
             <i id="" className="unselected material-icons">favorite</i>
-
           </button>
 
         </div>
-
       </div>
     )
   }

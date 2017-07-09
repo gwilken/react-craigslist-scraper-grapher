@@ -33,7 +33,15 @@ const api = {
       method: 'POST'
     }).then((res) => res.json())
         .then((data) => data);
+  },
+
+  update: function(id, target) {
+    return fetch(`/update/${id}/${target}`, {
+      method: 'POST'
+    }).then((res) => res.json())
+        .then((data) => data);
   }
+
 }
 
 export default api;

@@ -25923,16 +25923,16 @@
 	    value: function _delete(id) {
 	      var _this2 = this;
 
-	      //this.setState( {results: data} );
 	      _api2.default.delete(id).then(function (res) {
-
 	        _this2.setState({ results: res });
 	      });
 	    }
 	  }, {
 	    key: "update",
-	    value: function update(id) {
-	      console.log('parent u', id);
+	    value: function update(id, target) {
+	      _api2.default.update(id, target).then(function (res) {
+	        console.log(res);
+	      });
 	    }
 	  }, {
 	    key: "doSearch",
@@ -26056,7 +26056,18 @@
 	    }).then(function (data) {
 	      return data;
 	    });
+	  },
+
+	  update: function update(id, target) {
+	    return fetch('/update/' + id + '/' + target, {
+	      method: 'POST'
+	    }).then(function (res) {
+	      return res.json();
+	    }).then(function (data) {
+	      return data;
+	    });
 	  }
+
 	};
 
 		exports.default = api;
@@ -26204,7 +26215,22 @@
 	  _createClass(BarChart, [{
 	    key: "handleUpdate",
 	    value: function handleUpdate(event) {
-	      this.props.update(event.target.value);
+	      var _this2 = this;
+
+	      _api2.default.update(event.target.value, this.state.target).then(function (res) {
+	        console.log('at barchart:', res);
+
+	        console.log('before', _this2.state);
+
+	        var stateCopy = Object.assign({}, _this2.state);
+	        stateCopy.updatedAt = res.updatedAt;
+	        stateCopy.data.labels = res.titles;
+	        stateCopy.data.datasets[0].data = res.prices;
+
+	        _this2.setState(stateCopy);
+
+	        console.log('after', _this2.state);
+	      });
 	    }
 	  }, {
 	    key: "handleDelete",

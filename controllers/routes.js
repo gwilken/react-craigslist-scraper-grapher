@@ -73,6 +73,7 @@ router.post("/search", function(req, res) {
         res.send(doc[0]);
       })
     });
+
   });
 
 
@@ -86,6 +87,68 @@ router.post('/delete/:id', function(req, res) {
       res.json(docs);
     })
   })
+});
+
+
+router.post('/update/:id/:target', function(req, res) {
+
+  console.log(req.params.id, req.params.target);
+
+  var re = new RegExp("https:");
+  var baseUrl = "https://losangeles.craigslist.org";
+  var searchUrl = "/search/sss?query=";
+
+  var search = {
+    titles: [],
+    prices: [],
+    links: [],
+    updatedAt: Date.now()
+  }
+
+  request(baseUrl + searchUrl + req.params.target, function(error, response, html) {
+
+    var $ = cheerio.load(html);
+
+    $("ul.rows li.result-row p.result-info").each(function(i, element) {
+
+      var title = $(this).children(".result-title").text();
+      var price = $(this).children(".result-meta").children(".result-price").text().replace(/\$/g, '');
+      var link = $(this).children("a").attr("href");
+
+      if( re.test(link) === false ) link = baseUrl + link;
+
+      search.titles.push(title);
+      search.prices.push(parseFloat(price));
+      search.links.push(link);
+
+    });
+
+    db.collection.updateOne(
+      {
+       _id: ObjectID(req.params.id)
+      },
+      {
+        $set: {
+          "titles": search.titles,
+          "links": search.links,
+          "prices": search.prices,
+          "updatedAt": search.updatedAt
+        }
+      },
+      function(err, data) {
+          if(err) console.log(err);
+          res.json({titles: search.titles, links: search.links, prices: search.prices, updatedAt: search.updatedAt});
+      })
+
+  });
+
+  // db.collection.update({
+  //   _id: req.params.id
+  // },
+  // {
+  //
+  // })
+
 });
 
 
