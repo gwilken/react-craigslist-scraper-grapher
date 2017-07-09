@@ -28,6 +28,7 @@ class BarChart extends React.Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleFavorite = this.handleFavorite.bind(this);
   }
 
   handleUpdate(event) {
@@ -37,6 +38,7 @@ class BarChart extends React.Component {
       console.log('before', this.state);
 
       var stateCopy = Object.assign({}, this.state);
+
       stateCopy.updatedAt = res.updatedAt;
       stateCopy.data.labels = res.titles;
       stateCopy.data.datasets[0].data = res.prices;
@@ -61,9 +63,37 @@ class BarChart extends React.Component {
     });
   }
 
+  handleFavorite(event) {
+    if(parseInt(this.state.favorite) === 1) {
+      this.setState({favorite: 0});
+
+      api.setFavorite(this.state.id, 0);
+
+    } else {
+      this.setState({favorite: 1});
+      api.setFavorite(this.state.id, 1);
+    }
+  }
+
   prettyTime() {
     var updated = moment(this.state.updatedAt).calendar();
     return(updated);
+  }
+
+  favoriteIcon() {
+
+    var isSelected;
+
+    if(parseInt(this.state.favorite) === 1) {
+      isSelected = "selected material-icons";
+    } else {
+      isSelected = "unselected material-icons";
+    }
+
+    return (
+        <i className= { isSelected } >favorite </i>
+    )
+
   }
 
   render() {
@@ -121,8 +151,10 @@ class BarChart extends React.Component {
             Delete
           </button>
 
-          <button value={this.state.id } className="favorite mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-            <i id="" className="unselected material-icons">favorite</i>
+          <button value={this.state.id }
+            className="favorite mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+            onClick={this.handleFavorite}>
+            { this.favoriteIcon() }
           </button>
 
         </div>

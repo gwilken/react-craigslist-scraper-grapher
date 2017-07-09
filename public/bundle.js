@@ -26029,6 +26029,16 @@
 	    });
 	  },
 
+	  setFavorite: function setFavorite(id, favState) {
+	    return fetch('/setFav/' + id + '/' + favState, {
+	      method: 'POST'
+	    }).then(function (res) {
+	      return res.json();
+	    }).then(function (data) {
+	      return data;
+	    });
+	  },
+
 	  getLink: function getLink(id, index) {
 	    return fetch('/link/' + id + '/' + index, { method: 'GET' }).then(function (res) {
 	      return res.json();
@@ -26209,6 +26219,7 @@
 	    _this.handleDelete = _this.handleDelete.bind(_this);
 	    _this.handleUpdate = _this.handleUpdate.bind(_this);
 	    _this.handleClick = _this.handleClick.bind(_this);
+	    _this.handleFavorite = _this.handleFavorite.bind(_this);
 	    return _this;
 	  }
 
@@ -26223,6 +26234,7 @@
 	        console.log('before', _this2.state);
 
 	        var stateCopy = Object.assign({}, _this2.state);
+
 	        stateCopy.updatedAt = res.updatedAt;
 	        stateCopy.data.labels = res.titles;
 	        stateCopy.data.datasets[0].data = res.prices;
@@ -26248,10 +26260,40 @@
 	      });
 	    }
 	  }, {
+	    key: "handleFavorite",
+	    value: function handleFavorite(event) {
+	      if (parseInt(this.state.favorite) === 1) {
+	        this.setState({ favorite: 0 });
+
+	        _api2.default.setFavorite(this.state.id, 0);
+	      } else {
+	        this.setState({ favorite: 1 });
+	        _api2.default.setFavorite(this.state.id, 1);
+	      }
+	    }
+	  }, {
 	    key: "prettyTime",
 	    value: function prettyTime() {
 	      var updated = (0, _moment2.default)(this.state.updatedAt).calendar();
 	      return updated;
+	    }
+	  }, {
+	    key: "favoriteIcon",
+	    value: function favoriteIcon() {
+
+	      var isSelected;
+
+	      if (parseInt(this.state.favorite) === 1) {
+	        isSelected = "selected material-icons";
+	      } else {
+	        isSelected = "unselected material-icons";
+	      }
+
+	      return _react2.default.createElement(
+	        "i",
+	        { className: isSelected },
+	        "favorite "
+	      );
 	    }
 	  }, {
 	    key: "render",
@@ -26326,12 +26368,10 @@
 	          ),
 	          _react2.default.createElement(
 	            "button",
-	            { value: this.state.id, className: "favorite mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" },
-	            _react2.default.createElement(
-	              "i",
-	              { id: "", className: "unselected material-icons" },
-	              "favorite"
-	            )
+	            { value: this.state.id,
+	              className: "favorite mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect",
+	              onClick: this.handleFavorite },
+	            this.favoriteIcon()
 	          )
 	        )
 	      );

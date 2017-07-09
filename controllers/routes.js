@@ -14,23 +14,19 @@ router.get('/all', function(req, res) {
 });
 
 router.get('/favs', function(req, res) {
-
   db.collection.find({favorite: 1}).toArray(function( err, docs) {
     res.json(docs);
   })
 });
 
 router.get("/link/:id/:index", function(req, res) {
-
   db.collection.find( { _id: ObjectID(req.params.id) }, { _id: 0, links: 1 } ).toArray( function(err, doc) {
-
     if(err) console.log(err);
     res.json(doc[0].links[req.params.index]);
   })
 });
 
 router.post("/search", function(req, res) {
-
     var insertedId = null;
     var re = new RegExp("https:");
 
@@ -139,33 +135,36 @@ router.post('/update/:id/:target', function(req, res) {
           if(err) console.log(err);
           res.json({titles: search.titles, links: search.links, prices: search.prices, updatedAt: search.updatedAt});
       })
-
   });
-
-  // db.collection.update({
-  //   _id: req.params.id
-  // },
-  // {
-  //
-  // })
 
 });
 
 
-router.post('/favorite/:id/:toggle', function(req, res) {
+router.post('/setFav/:id/:favState', function(req, res) {
 
-  var isFav = parseInt(req.params.toggle);
+  var isFav = parseInt(req.params.favState);
 
-  db.collection.updateOne( { _id: ObjectID(req.params.id) }, { $set: { favorite: isFav } }, function(err, result) {
+  console.log(req.params.id, isFav);
 
-    if(result.result.ok === 1) {
-      res.send(true);
+  db.collection.updateOne(
+    {
+      _id: ObjectID(req.params.id)
+    },
+    {
+      $set: { favorite: isFav}
+    },
 
-    } else {
-      res.send(false);
-    };
+    function(err, result) {
+
+      if(result.result.ok === 1) {
+        res.send(true);
+
+      } else {
+        res.send(false);
+      };
 
   });
+
 });
 
 router.get("*", function(req, res) {

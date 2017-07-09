@@ -13,6 +13,14 @@ const api = {
         .then((data) => data);
   },
 
+  setFavorite: function(id, favState) {
+    return fetch(`/setFav/${id}/${favState}`, {
+      method: 'POST'
+    })
+      .then((res) => res.json())
+        .then((data) => data);
+  },
+
   getLink: function(id, index) {
     return fetch(`/link/${id}/${index}`, {method: 'GET'})
     .then((res) => res.json())
