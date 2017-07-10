@@ -24,6 +24,7 @@ body {
 }
 
 #search-container {
+  position: relative;
   margin: 2% 0% 2% 4%;
 }
 
@@ -36,6 +37,11 @@ body {
 
 #go-button {
   display: none;
+}
+
+#fav-button {
+  position: relative;
+  margin: 0 0 0 2%;
 }
 
 .search-updatedAt {

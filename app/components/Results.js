@@ -1,25 +1,12 @@
 import React from "react";
 import Search from "./Search";
 import api from "../utils/api";
-
 import BarChart from "./BarChart";
-
 
 class Results extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: this.props.data
-    }
-
-  }
-
   render() {
-
     return(
-
       <div>
         <ul>
           {
@@ -31,10 +18,8 @@ class Results extends React.Component {
           }
         </ul>
       </div>
-
     )
   }
-
 }
 
 export default Results;

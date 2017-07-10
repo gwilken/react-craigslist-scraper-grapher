@@ -25898,6 +25898,7 @@
 
 	    _this.state = {
 	      text: '',
+	      view: 'all',
 	      results: null
 	    };
 
@@ -25906,6 +25907,9 @@
 	    _this.haveData = _this.haveData.bind(_this);
 	    _this.delete = _this.delete.bind(_this);
 	    _this.update = _this.update.bind(_this);
+	    _this.toggleFavs = _this.toggleFavs.bind(_this);
+	    _this.toggleAll = _this.toggleAll.bind(_this);
+	    _this.view = _this.view.bind(_this);
 	    return _this;
 	  }
 
@@ -25953,6 +25957,53 @@
 	      });
 	    }
 	  }, {
+	    key: "toggleFavs",
+	    value: function toggleFavs() {
+	      var _this4 = this;
+
+	      _api2.default.getFavorites().then(function (res) {
+	        _this4.setState({ results: res.reverse() });
+	      });
+
+	      this.setState({ view: 'favs' });
+	    }
+	  }, {
+	    key: "toggleAll",
+	    value: function toggleAll() {
+	      fetch('/all').then(function (res) {
+	        return res.json();
+	      }).then(function (data) {
+	        this.setState({ results: data });
+	      }.bind(this));
+
+	      this.setState({ view: 'all' });
+	    }
+	  }, {
+	    key: "view",
+	    value: function view() {
+	      if (this.state.view === "all") {
+	        return _react2.default.createElement(
+	          "button",
+	          {
+	            id: "fav-button",
+	            className: "mdl-button mdl-button--colored mdl-js-button",
+	            type: "submit",
+	            onClick: this.toggleFavs },
+	          "Show Favs"
+	        );
+	      } else if (this.state.view === "favs") {
+	        return _react2.default.createElement(
+	          "button",
+	          {
+	            id: "fav-button",
+	            className: "mdl-button mdl-button--colored mdl-js-button",
+	            type: "submit",
+	            onClick: this.toggleAll },
+	          "Show All"
+	        );
+	      }
+	    }
+	  }, {
 	    key: "haveData",
 	    value: function haveData() {
 	      if (this.state.results) {
@@ -25985,11 +26036,15 @@
 	            ),
 	            _react2.default.createElement(
 	              "button",
-	              { id: "go-button", className: "mdl-button mdl-button--colored mdl-js-button", type: "submit" },
+	              {
+	                id: "go-button",
+	                className: "mdl-button mdl-button--colored mdl-js-button",
+	                type: "submit" },
 	              "Go"
 	            )
 	          )
 	        ),
+	        this.view(),
 	        this.props.children,
 	        this.haveData()
 	      );
@@ -26121,16 +26176,10 @@
 	var Results = function (_React$Component) {
 	  _inherits(Results, _React$Component);
 
-	  function Results(props) {
+	  function Results() {
 	    _classCallCheck(this, Results);
 
-	    var _this = _possibleConstructorReturn(this, (Results.__proto__ || Object.getPrototypeOf(Results)).call(this, props));
-
-	    _this.state = {
-	      data: _this.props.data
-	    };
-
-	    return _this;
+	    return _possibleConstructorReturn(this, (Results.__proto__ || Object.getPrototypeOf(Results)).apply(this, arguments));
 	  }
 
 	  _createClass(Results, [{
