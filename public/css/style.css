@@ -45,6 +45,7 @@ body {
 }
 
 .info-text {
+  color: grey;
   top: 0;
   margin: 3% 3% 0% 6%;
   position: absolute;
