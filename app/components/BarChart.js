@@ -29,14 +29,11 @@ class BarChart extends React.Component {
     this.handleUpdate = this.handleUpdate.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
+    this.getAverages = this.getAverages.bind(this);
   }
 
   handleUpdate(event) {
     api.update(event.target.value, this.state.target).then((res) => {
-      console.log('at barchart:', res);
-
-      console.log('before', this.state);
-
       var stateCopy = Object.assign({}, this.state);
 
       stateCopy.updatedAt = res.updatedAt;
@@ -44,9 +41,6 @@ class BarChart extends React.Component {
       stateCopy.data.datasets[0].data = res.prices;
 
       this.setState(stateCopy);
-
-      console.log('after', this.state);
-
     });
   }
 
@@ -80,8 +74,23 @@ class BarChart extends React.Component {
     return(updated);
   }
 
-  favoriteIcon() {
+  getAverages() {
+    var prices = this.state.data.datasets[0].data
+      .slice()
+        .filter((element) => {
+          if(element !== null) return element;
+        })
+          .sort();
 
+    var average = prices.reduce((sum, val) => { return sum + val }) / prices.length;
+    var median = prices[ Math.floor( prices.length / 2) ];
+
+    return (
+      <span className="search-averages"> Average ${average.toFixed(0)},  Median ${median.toFixed(0)} </span>
+    )
+  }
+
+  favoriteIcon() {
     var isSelected;
 
     if(parseInt(this.state.favorite) === 1) {
@@ -93,7 +102,6 @@ class BarChart extends React.Component {
     return (
         <i className= { isSelected } >favorite </i>
     )
-
   }
 
   render() {
@@ -133,7 +141,15 @@ class BarChart extends React.Component {
         </div>
 
         <div className="titlebar">
+
+          <button value={this.state.id }
+            className="favorite mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+            onClick={this.handleFavorite}>
+            { this.favoriteIcon() }
+          </button>
+
           <span className="search-title"> {this.state.target} </span>
+          {this.getAverages()}
           <span className="search-updatedAt"> { this.prettyTime() } </span>
 
           <button
@@ -149,12 +165,6 @@ class BarChart extends React.Component {
             className="delete mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
             onClick={this.handleDelete}>
             Delete
-          </button>
-
-          <button value={this.state.id }
-            className="favorite mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
-            onClick={this.handleFavorite}>
-            { this.favoriteIcon() }
           </button>
 
         </div>

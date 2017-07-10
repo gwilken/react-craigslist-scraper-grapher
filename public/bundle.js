@@ -26220,6 +26220,7 @@
 	    _this.handleUpdate = _this.handleUpdate.bind(_this);
 	    _this.handleClick = _this.handleClick.bind(_this);
 	    _this.handleFavorite = _this.handleFavorite.bind(_this);
+	    _this.getAverages = _this.getAverages.bind(_this);
 	    return _this;
 	  }
 
@@ -26229,10 +26230,6 @@
 	      var _this2 = this;
 
 	      _api2.default.update(event.target.value, this.state.target).then(function (res) {
-	        console.log('at barchart:', res);
-
-	        console.log('before', _this2.state);
-
 	        var stateCopy = Object.assign({}, _this2.state);
 
 	        stateCopy.updatedAt = res.updatedAt;
@@ -26240,8 +26237,6 @@
 	        stateCopy.data.datasets[0].data = res.prices;
 
 	        _this2.setState(stateCopy);
-
-	        console.log('after', _this2.state);
 	      });
 	    }
 	  }, {
@@ -26278,9 +26273,30 @@
 	      return updated;
 	    }
 	  }, {
+	    key: "getAverages",
+	    value: function getAverages() {
+	      var prices = this.state.data.datasets[0].data.slice().filter(function (element) {
+	        if (element !== null) return element;
+	      }).sort();
+
+	      var average = prices.reduce(function (sum, val) {
+	        return sum + val;
+	      }) / prices.length;
+	      var median = prices[Math.floor(prices.length / 2)];
+
+	      return _react2.default.createElement(
+	        "span",
+	        { className: "search-averages" },
+	        " Average $",
+	        average.toFixed(0),
+	        ",  Median $",
+	        median.toFixed(0),
+	        " "
+	      );
+	    }
+	  }, {
 	    key: "favoriteIcon",
 	    value: function favoriteIcon() {
-
 	      var isSelected;
 
 	      if (parseInt(this.state.favorite) === 1) {
@@ -26336,12 +26352,20 @@
 	          "div",
 	          { className: "titlebar" },
 	          _react2.default.createElement(
+	            "button",
+	            { value: this.state.id,
+	              className: "favorite mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect",
+	              onClick: this.handleFavorite },
+	            this.favoriteIcon()
+	          ),
+	          _react2.default.createElement(
 	            "span",
 	            { className: "search-title" },
 	            " ",
 	            this.state.target,
 	            " "
 	          ),
+	          this.getAverages(),
 	          _react2.default.createElement(
 	            "span",
 	            { className: "search-updatedAt" },
@@ -26365,13 +26389,6 @@
 	              className: "delete mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect",
 	              onClick: this.handleDelete },
 	            "Delete"
-	          ),
-	          _react2.default.createElement(
-	            "button",
-	            { value: this.state.id,
-	              className: "favorite mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect",
-	              onClick: this.handleFavorite },
-	            this.favoriteIcon()
 	          )
 	        )
 	      );
