@@ -150,23 +150,26 @@ class BarChart extends React.Component {
 
           <span className="search-title"> {this.state.target} </span>
           {this.getAverages()}
-          <span className="search-updatedAt"> { this.prettyTime() } </span>
 
-          <button
-            value={this.state.id}
-            className="update mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-            onClick={this.handleUpdate}
-            >
-            Update
-          </button>
 
-          <button
-            value={this.state.id}
-            className="delete mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-            onClick={this.handleDelete}>
-            Delete
-          </button>
+          <div className="bar-buttons">
+            <span className="search-updatedAt"> { this.prettyTime() } </span>
 
+            <button
+              value={this.state.id}
+              className="update mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+              onClick={this.handleUpdate}
+              >
+              Update
+            </button>
+
+            <button
+              value={this.state.id}
+              className="delete mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+              onClick={this.handleDelete}>
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     )

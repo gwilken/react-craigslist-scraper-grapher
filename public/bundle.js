@@ -26018,33 +26018,42 @@
 	        "div",
 	        null,
 	        _react2.default.createElement(
-	          "div",
-	          { id: "search-container", className: "mdl-textfield mdl-js-textfield" },
+	          "header",
+	          null,
 	          _react2.default.createElement(
-	            "form",
-	            { onSubmit: this.doSearch },
-	            _react2.default.createElement("input", {
-	              className: "mdl-textfield__input",
-	              onChange: this.updateText,
-	              type: "text" }),
+	            "div",
+	            { id: "search-container", className: "mdl-textfield mdl-js-textfield" },
 	            _react2.default.createElement(
-	              "label",
-	              {
-	                id: "search-label",
-	                className: "mdl-textfield__label" },
-	              "Search..."
-	            ),
-	            _react2.default.createElement(
-	              "button",
-	              {
-	                id: "go-button",
-	                className: "mdl-button mdl-button--colored mdl-js-button",
-	                type: "submit" },
-	              "Go"
+	              "form",
+	              { onSubmit: this.doSearch },
+	              _react2.default.createElement("input", {
+	                className: "mdl-textfield__input",
+	                onChange: this.updateText,
+	                type: "text" }),
+	              _react2.default.createElement(
+	                "label",
+	                {
+	                  id: "search-label",
+	                  className: "mdl-textfield__label" },
+	                "Search..."
+	              ),
+	              _react2.default.createElement(
+	                "button",
+	                {
+	                  id: "go-button",
+	                  className: "mdl-button mdl-button--colored mdl-js-button",
+	                  type: "submit" },
+	                "Go"
+	              )
 	            )
+	          ),
+	          this.view(),
+	          _react2.default.createElement(
+	            "div",
+	            { className: "info-text" },
+	            "Scrape Craigslist.org Los Angeles for sale listings and get an up to date visual overview of prices and averages. Hover over a bar to see individual info, click it to go to that item."
 	          )
 	        ),
-	        this.view(),
 	        this.props.children,
 	        this.haveData()
 	      );
@@ -26416,28 +26425,32 @@
 	          ),
 	          this.getAverages(),
 	          _react2.default.createElement(
-	            "span",
-	            { className: "search-updatedAt" },
-	            " ",
-	            this.prettyTime(),
-	            " "
-	          ),
-	          _react2.default.createElement(
-	            "button",
-	            {
-	              value: this.state.id,
-	              className: "update mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect",
-	              onClick: this.handleUpdate
-	            },
-	            "Update"
-	          ),
-	          _react2.default.createElement(
-	            "button",
-	            {
-	              value: this.state.id,
-	              className: "delete mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect",
-	              onClick: this.handleDelete },
-	            "Delete"
+	            "div",
+	            { className: "bar-buttons" },
+	            _react2.default.createElement(
+	              "span",
+	              { className: "search-updatedAt" },
+	              " ",
+	              this.prettyTime(),
+	              " "
+	            ),
+	            _react2.default.createElement(
+	              "button",
+	              {
+	                value: this.state.id,
+	                className: "update mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect",
+	                onClick: this.handleUpdate
+	              },
+	              "Update"
+	            ),
+	            _react2.default.createElement(
+	              "button",
+	              {
+	                value: this.state.id,
+	                className: "delete mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect",
+	                onClick: this.handleDelete },
+	              "Delete"
+	            )
 	          )
 	        )
 	      );

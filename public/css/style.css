@@ -44,15 +44,26 @@ body {
   margin: 0 0 0 2%;
 }
 
+.info-text {
+  top: 0;
+  margin: 3% 3% 0% 6%;
+  position: absolute;
+  display: inline;
+}
+
 .search-updatedAt {
   color: grey;
   font-size: 16px;
 }
 
 .search-averages {
-  margin-left: 2%;
+  margin-left: 3%;
   color: grey;
   font-size: 16px;
+}
+
+.bar-buttons {
+  float: right;
 }
 
 .mdl-textfield__input {
@@ -61,6 +72,7 @@ body {
 }
 
 .favorite {
+  margin-right: 1%;
   bottom: 5px;
 }
 

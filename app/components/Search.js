@@ -112,32 +112,39 @@ class Search extends React.Component {
 
     return(
       <div>
-        <div id="search-container" className="mdl-textfield mdl-js-textfield">
-          <form onSubmit={this.doSearch}>
+        <header>
+          <div id="search-container" className="mdl-textfield mdl-js-textfield">
+            <form onSubmit={this.doSearch}>
 
-            <input
-              className='mdl-textfield__input'
-              onChange={this.updateText}
-              type="text" />
+              <input
+                className='mdl-textfield__input'
+                onChange={this.updateText}
+                type="text" />
 
-            <label
-              id="search-label"
-              className="mdl-textfield__label">
-              Search...
-            </label>
+              <label
+                id="search-label"
+                className="mdl-textfield__label">
+                Search...
+              </label>
 
-            <button
-              id="go-button"
-              className="mdl-button mdl-button--colored mdl-js-button"
-              type="submit">
-              Go
-            </button>
+              <button
+                id="go-button"
+                className="mdl-button mdl-button--colored mdl-js-button"
+                type="submit">
+                Go
+              </button>
 
-          </form>
+            </form>
 
-        </div>
+          </div>
 
-          {this.view()}
+            {this.view()}
+
+            <div className="info-text">
+              Scrape Craigslist.org Los Angeles for sale listings and get an up to date visual overview of prices and averages. Hover over a bar to see individual info, click it to go to that item.
+            </div>
+
+        </header>
 
           {this.props.children}
           {this.haveData()}
