@@ -30,11 +30,29 @@ module.exports = {
     ]
   },
   plugins: [
-
       // new BundleAnalyzerPlugin(),
       new webpack.DefinePlugin({
-               'process.env.NODE_ENV': '"production"'
+        'process.env': {
+          'NODE_ENV': JSON.stringify('production')
+        }
       }),
+     new webpack.optimize.DedupePlugin(),
+     new webpack.optimize.UglifyJsPlugin({
+       mangle: true,
+       compress: {
+         warnings: false, // Suppress uglification warnings
+         pure_getters: true,
+         unsafe: true,
+         unsafe_comps: true,
+         screw_ie8: true
+       },
+       output: {
+         comments: false,
+       },
+       exclude: [/\.min\.js$/gi] // skip pre-minified libs
+     }),
+   new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/]),
+   new webpack.NoErrorsPlugin()
   ],
   // This lets us debug our react code in chrome dev tools. Errors will have lines and file names
   // Without this the console says all errors are coming from just coming from bundle.js
