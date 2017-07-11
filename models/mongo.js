@@ -1,7 +1,7 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
-const url = 'mongodb://localhost:27017/scraper';
+const url = 'mongodb://localhost:27017/test';
 
 var mongo = {
 
@@ -12,7 +12,7 @@ var mongo = {
       MongoClient.connect(url, function(err, db) {
           console.log("Connected successfully to mongodb");
           mongo.db = db;
-          mongo.collection = db.collection('data');
+          mongo.collection = db.collection('scraper');
         });
     }
 };
