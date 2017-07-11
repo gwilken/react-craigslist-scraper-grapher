@@ -6,4 +6,4 @@ Prices are graphed on the Y axis. Hovering over a bar will bring up the title of
 
 ## Simple is beautiful
 
-![react graphs](https://github.com/gwilken/react-craigslist-scraper-grapher/blob/master/readme-images/rc-01.jpeg)
+![react graphs](/public/readme-images/scraper-03.jpeg)
