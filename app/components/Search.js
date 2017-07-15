@@ -146,7 +146,6 @@ class Search extends React.Component {
 
         </header>
 
-          {this.props.children}
           {this.haveData()}
 
     </div>

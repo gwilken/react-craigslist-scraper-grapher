@@ -82,8 +82,13 @@ class BarChart extends React.Component {
         })
           .sort();
 
-    var average = prices.reduce((sum, val) => { return sum + val }) / prices.length;
-    var median = prices[ Math.floor( prices.length / 2) ];
+    var average = 0;
+    var median = 0;
+
+    if(prices.length > 0) {
+      average = prices.reduce((sum, val) => { return sum + val }) / prices.length;
+      median = prices[ Math.floor( prices.length / 2) ];
+    }
 
     return (
       <span className="search-averages"> Average ${average.toFixed(0)},  Median ${median.toFixed(0)} </span>
